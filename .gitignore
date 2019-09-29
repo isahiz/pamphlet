@@ -1,3 +1,5 @@
 *.tex
 /images
 *.aux
+*.pdf
+*.txt
