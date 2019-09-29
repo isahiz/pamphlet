@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[tableposition=top]{caption}
+\usepackage{tabularx}
+\usepackage{tikz}
+
+\newcolumntype{a}{>{\hsize=0.3\hsize}X}
+\newcolumntype{b}{>{\hsize=0.7\hsize}X}
+
+\begin{document}\begin{table}[!ht]
+\caption{Table caption}
+\makebox[\linewidth] {
+\begin{tabularx}{7in}{|a|b|a|b|} \hline
+\begin{tikzpicture}
+\node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=\textwidth]{ksdfj/﻿Liu_Mingyan.jpg}};
+\end{tikzpicture}
+ & Mingyan ﻿Liu
+&\begin{tikzpicture}
+\node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=\textwidth]{ksdfj/Baher_Daniel.jpg}};
+\end{tikzpicture}
+ & Daniel Baher
+\\ \hline
+\begin{tikzpicture}
+\node[anchor=south west,inner sep=0] at (0,0) {\includegraphics[width=\textwidth]{ksdfj/booboo _the fool.jpg}};
+\end{tikzpicture}
+ & the fool booboo 
+&\end{tabularx}
+}
+\end{table}
+\end{document}
