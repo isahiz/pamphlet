@@ -52,6 +52,7 @@ def write_table(incsv, imgdir, out):
 			println = println[1: -1 * len("\\\\ \\hline\n")] + " & & " + "\\\\ \\hline\n"
 		out.write(println)
 
+# run `pamphlet.py -ic [csv file name] -o [output.tex] -img [directory images for file]`
 def main():
 	outname = "none"
 	incsv = "none"
