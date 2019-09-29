@@ -23,7 +23,7 @@ def begin_table(out):
 	out.write("\\begin{table}[!ht]\n")
 	out.write("\\caption{Table caption}\n")
 	out.write("\\makebox[\\linewidth] {\n")
-	out.write("\\begin{tabularx}{7in}{|a|b|a|b|} \\hline\n")
+	out.write("\\begin{tabularx}{7in}{|a|b|a|b|} \\hline\n\\")
 
 def end_table(out):
 	out.write("\\end{tabularx}\n")
@@ -34,26 +34,23 @@ def write_table(incsv, imgdir, out):
 	with open(incsv) as csvfile:
 		readcsv = csv.reader(csvfile, delimiter=',')
 		column_limit = 2
-		column_count = 1
+		column_count = 0
+		println = ""
 		for row in readcsv:
+			column_count += 1
 			lastname = row[0]
 			firstname = row[1]
 			extratxt = row[2]
 			img_filename = imgdir + "/" + lastname + "_" + firstname + ".jpg"
-			out.write("\\begin{tikzpicture}\n")
-			out.write("\\node[anchor=south west,inner sep=0] at (0,0) {\\includegraphics[width=\\textwidth]{" + img_filename + "}};\n")
-			out.write("\\end{tikzpicture}\n")
-			out.write(" & ")
-			out.write(firstname + " " + lastname + "\n")
+			println += "\\begin{tikzpicture}\n" + "\\node[anchor=south west,inner sep=0] at (0,0) {\\includegraphics[width=\\textwidth]{" + img_filename + "}};\n" + "\\end{tikzpicture}\n & " + firstname + " " + lastname + "\n"
 			if column_count == 2:
-				out.write("\\\\ \\hline\n")
 				column_count = 1
+				println += "\\\\ \\hline\n"
 			else:
-				out.write(" & ")
-				column_count += 1
-
-		if column_count == 1:
-			out.write("\\\\ \\hline\n")
+				println += " & "
+		if column_count < 2:
+			println = println[1: -1 * len("\\\\ \\hline\n")] + " & & " + "\\\\ \\hline\n"
+		out.write(println)
 
 def main():
 	outname = "none"
