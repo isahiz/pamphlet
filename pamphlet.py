@@ -50,10 +50,8 @@ def write_table(incsv, imgdir, out):
 		for row in readcsv:
 			column_count += 1
 			lastname = get_clean_text(row[0])
-			print(lastname)
 			firstname = row[1]
 			extratxt = row[2]
-			print(clean_path(imgdir))
 			img_filename = clean_path(imgdir) + "/" + firstname + lastname + ".jpg"
 			println += "\\resizebox{1in}{1in}{"
 			println += "\\begin{tikzpicture}\n" + "\\node[anchor=south west,inner sep=0] at (0,0) {\\includegraphics[width=\\textwidth]{" + img_filename + "}};\n" + "\\end{tikzpicture}}\n" 
@@ -66,9 +64,6 @@ def write_table(incsv, imgdir, out):
 				println += " & "
 		if column_count < 2:
 			println = println[1: -1 * len(" & ")] + " & & " + "\\\\ \\hline\n"
-		print(println[1: -1 * len("\\\\ \\hline\n")])
-
-		
 		out.write(println)
 
 def make_pdf(f):
@@ -79,6 +74,7 @@ def main():
 	outname = "none"
 	incsv = "none"
 	imgdir_name = "none"
+	pdf = False 
 	for i in range(1, len(sys.argv), 2):
 		if sys.argv[i] == '-o':
 			outname = sys.argv[i + 1]
@@ -86,6 +82,8 @@ def main():
 			incsv = sys.argv[i + 1]
 		elif sys.argv[i] == "-img":
 			imgdir_name = sys.argv[i + 1]
+		elif sys.argv[i] == "-pdf":
+			pdf = True if sys.argv[i + 1] == str.lower("t") else False
 
 	outfile = open(outname, 'w')
 
@@ -96,7 +94,8 @@ def main():
 	end_document(outfile)
 
 	outfile.close()
-	#make_pdf(outname)
+	if pdf:
+		make_pdf(outname)
 
 if __name__ == '__main__':
 	main()
