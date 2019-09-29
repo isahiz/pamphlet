@@ -1,6 +1,6 @@
 # pamphlet
 
-##Usage
+## Usage
 
 ```
 py pamphlet.py -ic [input .csv file] -o [.tex file name] -img [img directory] -pdf [t/f]
