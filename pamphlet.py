@@ -42,7 +42,10 @@ def write_table(incsv, imgdir, out):
 			firstname = row[1]
 			extratxt = row[2]
 			img_filename = imgdir + "/" + lastname + "_" + firstname + ".jpg"
-			println += "\\begin{tikzpicture}\n" + "\\node[anchor=south west,inner sep=0] at (0,0) {\\includegraphics[width=\\textwidth]{" + img_filename + "}};\n" + "\\end{tikzpicture}\n & " + firstname + " " + lastname + "\n"
+			println += "\\resizebox{1in}{1in}{"
+			println += "\\begin{tikzpicture}\n" + "\\node[anchor=south west,inner sep=0] at (0,0) {\\includegraphics[width=\\textwidth]{" + img_filename + "}};\n" + "\\end{tikzpicture}}\n" 
+			println += "& " + firstname + " " + lastname + "\n"
+			println += extratxt + "\n" #designation information can go here
 			if column_count == 2:
 				column_count = 1
 				println += "\\\\ \\hline\n"
@@ -51,6 +54,9 @@ def write_table(incsv, imgdir, out):
 		if column_count < 2:
 			println = println[1: -1 * len("\\\\ \\hline\n")] + " & & " + "\\\\ \\hline\n"
 		out.write(println)
+
+def make_pdf(f):
+	os.system("pdflatex " + f)
 
 # run `pamphlet.py -ic [csv file name] -o [output.tex] -img [directory images for file]`
 def main():
@@ -69,9 +75,12 @@ def main():
 
 	begin_document(outfile)
 	begin_table(outfile)
-	write_table(incsv, imgdir_name, outfile)
+	write_table(incsv, os.path.abspath(imgdir_name), outfile)
 	end_table(outfile)
 	end_document(outfile)
+
+	outfile.close()
+	#make_pdf(outname)
 
 if __name__ == '__main__':
 	main()
