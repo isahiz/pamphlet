@@ -5,19 +5,27 @@ import time
 import io
 import csv
 
-def begin_document(out, imgdir):
-	out.write("\\documentclass{article}\n")
+def column_types(out):
+	out.write("\n\\newcolumntype{a}{>{\hsize=0.3\hsize}X}\n \\newcolumntype{b}{>{\hsize=0.7\hsize}X}\n")
+
+def add_packages(out):
 	out.write("\\usepackage[T1]{fontenc}\n")
 	out.write("\\usepackage[tableposition=top]{caption}\n")
 	out.write("\\usepackage{tabularx, makecell}\n")
 	out.write("\\usepackage{tikz}\n")
 	out.write("\\usepackage{graphicx}")
 
-	out.write("\n\\newcolumntype{a}{>{\hsize=0.3\hsize}X}\n \\newcolumntype{b}{>{\hsize=0.7\hsize}X}\n")
+def begin_document(out, imgdir):
+	out.write("\\documentclass{article}\n")
+	add_packages(out)
+	column_types(out)
 
+	#path for Latex to find images for pdf
 	out.write("\\graphicspath{{"+ imgdir +"/}}")
 
 	out.write("\n\\begin{document}")
+
+	#suppresses page numbers
 	out.write("\n\\thispagestyle{empty}")
 
 def end_document(out):
