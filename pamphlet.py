@@ -9,7 +9,7 @@ def begin_document(out, imgdir):
 	out.write("\\documentclass{article}\n")
 	out.write("\\usepackage[T1]{fontenc}\n")
 	out.write("\\usepackage[tableposition=top]{caption}\n")
-	out.write("\\usepackage{tabularx}\n")
+	out.write("\\usepackage{tabularx, makecell}\n")
 	out.write("\\usepackage{tikz}\n")
 	out.write("\\usepackage{graphicx}")
 
@@ -53,10 +53,10 @@ def write_table(incsv, imgdir, out):
 			firstname = row[1]
 			extratxt = row[2]
 			img_filename = clean_path(imgdir) + "/" + firstname + lastname + ".jpg"
+			println += "\\makecell[l]{"
 			println += "\\resizebox{1in}{1in}{"
-			println += "\\begin{tikzpicture}\n" + "\\node[anchor=south west,inner sep=0] at (0,0) {\\includegraphics[width=\\textwidth]{" + img_filename + "}};\n" + "\\end{tikzpicture}}\n" 
-			println += "& " + firstname + " " + lastname + "\n"
-			println += extratxt + "\n" #designation information can go here
+			println += "\\begin{tikzpicture}\n" + "\\node[anchor=south west,inner sep=0] at (0,0) {\\includegraphics[width=\\textwidth]{" + img_filename + "}};\n" + "\\end{tikzpicture}}}\n" 
+			println += "& \\makecell[l]{ \\\\" + firstname + " " + lastname + "\\\\" + extratxt + "}\n" #designation information can go here
 			if column_count == column_limit:
 				column_count = 0
 				println += "\\\\ \\hline\n"
