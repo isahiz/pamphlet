@@ -13,11 +13,12 @@ def begin_document(out, imgdir):
 	out.write("\\usepackage{tikz}\n")
 	out.write("\\usepackage{graphicx}")
 
-	out.write("\n\\newcolumntype{a}{>{\hsize=0.3\hsize}X}\n\\newcolumntype{b}{>{\hsize=0.7\hsize}X}\n")
+	out.write("\n\\newcolumntype{a}{>{\hsize=0.3\hsize}X}\n \\newcolumntype{b}{>{\hsize=0.7\hsize}X}\n")
 
 	out.write("\\graphicspath{{"+ imgdir +"/}}")
 
 	out.write("\n\\begin{document}")
+	out.write("\n\\thispagestyle{empty}")
 
 def end_document(out):
 	out.write("\\end{document}\n")
